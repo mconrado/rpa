@@ -11,6 +11,7 @@ options = webdriver.ChromeOptions()
 options.binary_location = '/usr/bin/chromium-browser'  # Substitua pelo caminho do seu executável do Chromium, se necessário
 
 print("Iniciando nosso robô...\n")
+arquivo = open("resultado.txt", "w")
 
 dominios = []
 #lendo excel
@@ -33,6 +34,8 @@ for dominio in dominios:
     time.sleep(2)
 
     resultados = driver.find_elements(By.TAG_NAME, "strong")
-    print("Domínio %s %s " % (dominio, resultados[2].text))
+    texto = "Domínio %s %s \n" % (dominio, resultados[2].text)
+    arquivo.write(texto)
 
+arquivo.close()
 driver.close()
