@@ -22,10 +22,12 @@ campo = driver.find_element(By.XPATH, "//textarea[@aria-label='Pesquisar']")
 campo.send_keys(pesquisa)
 campo.send_keys(Keys.ENTER)
 
-time.sleep(3)
 button_element = driver.find_element(By.ID, "hdtb-tls")
 button_element.click()
 
-resultados = driver.find_element(By.XPATH, "//*[@id='result-stats']")
-print(resultados.text)
+resultados = driver.find_element(By.XPATH, "//*[@id='result-stats']").text
+print(resultados)
+numero_resultados = int(resultados.split("Aproximadamente")[1].split(' resultados')[0].replace('.', ''))
+maximo_paginas = numero_resultados/10
+print("Número de páginas: %s" % (maximo_paginas))
 
