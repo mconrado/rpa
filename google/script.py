@@ -7,7 +7,7 @@ import time
 
 # Configurar o ChromeDriver
 options = webdriver.ChromeOptions()
-options.binary_location = '/usr/bin/chromium-browser'  # Substitua pelo caminho do seu executável do Chromium, se necessário
+options.binary_location = '/usr/bin/chromium-browser'
 
 
 pesquisa = input("Digite sua pesquisa:")
@@ -22,4 +22,10 @@ campo = driver.find_element(By.XPATH, "//textarea[@aria-label='Pesquisar']")
 campo.send_keys(pesquisa)
 campo.send_keys(Keys.ENTER)
 
+time.sleep(3)
+button_element = driver.find_element(By.ID, "hdtb-tls")
+button_element.click()
+
+resultados = driver.find_element(By.XPATH, "//*[@id='result-stats']")
+print(resultados.text)
 
