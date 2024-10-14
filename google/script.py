@@ -31,3 +31,22 @@ numero_resultados = int(resultados.split("Aproximadamente")[1].split(' resultado
 maximo_paginas = numero_resultados/10
 print("Número de páginas: %s" % (maximo_paginas))
 
+
+url_pagina = driver.find_element(By.XPATH, "//a[@aria-label='Page 2']").get_attribute("href")
+
+pagina_atual = 0
+start = 10
+while pagina_atual < 10:
+    if not pagina_atual == 0:
+        url_pagina = url_pagina.replace("start=%s" % start, "start=%s" % (start+10))
+        start += 10
+    pagina_atual += 1
+    driver.get(url_pagina)
+
+
+divs = driver.find_elements(By.XPATH, "//div[@class='MjjYud']")
+for div in divs:
+    nome = div.find_element(By.TAG_NAME, 'span')
+    link = div.find_element(By.TAG_NAME, 'a')
+    resultado = "%s;%s" % (nome.text, link.get_attribute("href"))
+    print(resultado)
