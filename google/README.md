@@ -5,6 +5,8 @@ Exercício adaptado para utilizar a biblioteca Selenium 4.24 e usar o gerenciame
 
 - result-stats: acrescentei um click para poder dar visualização aos resultados.
 
+- troca de classe de 'g' por 'yuRUbf'
+
 #### Requisitos
 ```
 pip install -r requirements.txt
