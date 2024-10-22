@@ -1,7 +1,6 @@
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
-from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 
 import time
@@ -24,6 +23,9 @@ class RoboYoutube():
     def busca(self, busca):
         url = "https://www.youtube.com/results?search_query=%s" % busca
         self.webdriver.get(url)
+        titulos = self.webdriver.find_elements(By.XPATH, "//a[@id='video-title']")
+        for titulo in titulos:
+            print("Vídeo encontrado: %s" % titulo.text)
 
 if __name__ == "__main__":
     bot = RoboYoutube()
