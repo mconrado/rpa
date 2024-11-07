@@ -43,6 +43,6 @@ s.login(fromaddr, config("HOST_PASSWORD"))
 
 text = msg.as_string()
 
-s.sendmail(fromaddr, toaddr, text)
+s.sendmail(fromaddr, toaddr.split(","), text)
 
 s.quit()

@@ -3,6 +3,10 @@
 
 Script simples de envio de e-mail
 
+*Pequenas mudanças:
+- Isolando as variáveis de ambientes evitando expor senhas e dados pessoais.
+- Correção de envio para mais de um e-mail, fazendo .split(',') no toaddr.
+
 #### Procedimento
 Renomeie o arquivo .env-sample para .env.
 Edite o arquivo .env e configure seu email, senha, smtp, porta e os emails a enviar.
