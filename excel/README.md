@@ -1,5 +1,5 @@
 
-# Envio de e-mail automático
+# Manipulação xlsx e relacionados.
 
 Scripts simples de manipulação de arquivos Excel
 
@@ -10,7 +10,7 @@ Scripts simples de manipulação de arquivos Excel
 #### Requisitos
 ```
 pip install -r requirements.txt
-python scritp.py
+python <scritp>.py
 
 ```
 
