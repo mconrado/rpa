@@ -1,5 +1,5 @@
 
-# Envio de e-mail automático
+# Envio de e-mail com informações da API do GitHub
 
 Script simples de envio de e-mail
 
