@@ -36,7 +36,8 @@ class TelegramBot:
 
         for chat in chats.chats:
             try:
-                if chat.megagroup == True:
+                # if chat.megagroup == True:
+                if chat.participants_count == 2:
                     groups.append(chat)
             except:
                 continue
@@ -49,7 +50,14 @@ class TelegramBot:
 
         escolha = input("Escolha um número: ")
         grupo_alvo = groups[int(escolha)]
-        return
+        return grupo_alvo
+
+    async def get_members_of_group(self, target_group):
+        all_participants = await self.client.get_participants(
+            target_group, aggressive=True
+        )
+
+        return all_participants
 
     async def initialize(self):
         await self.connect()
