@@ -1,11 +1,20 @@
 import time
 
 from decouple import config
-from telethon.errors.rpcerrorlist import PeerFloodError, UserPrivacyRestrictedError
+from telethon.errors.rpcerrorlist import (
+    PeerFloodError,
+    TakeoutRequiredError,
+    UserPrivacyRestrictedError,
+)
 from telethon.sync import TelegramClient
 from telethon.tl.functions.channels import InviteToChannelRequest
-from telethon.tl.functions.messages import GetDialogsRequest
-from telethon.tl.types import InputPeerChannel, InputPeerEmpty, InputPeerUser
+from telethon.tl.functions.messages import AddChatUserRequest, GetDialogsRequest
+from telethon.tl.types import (
+    InputPeerChannel,
+    InputPeerEmpty,
+    InputPeerUser,
+    InputPeerChat,
+)
 
 
 class TelegramBot:
@@ -37,7 +46,7 @@ class TelegramBot:
         for chat in chats.chats:
             try:
                 # if chat.megagroup == True:
-                if chat.participants_count == 2:
+                if chat.participants_count <= 2:
                     groups.append(chat)
             except:
                 continue
@@ -58,6 +67,43 @@ class TelegramBot:
         )
 
         return all_participants
+
+    async def add_member_to_group(self, user, target_group):
+        """
+        target_group_entity = InputPeerChannel(
+            target_group.id, target_group.access_hash
+        )
+        """
+
+        target_group_entity = InputPeerChat(target_group.id)
+
+        try:
+            print("Adicionando usuário %s" % user.id)
+
+            user_to_add = InputPeerUser(user.id, user.access_hash)
+
+            await self.client(
+                # InviteToChannelRequest(target_group_entity, [user_to_add])
+                AddChatUserRequest(
+                    target_group_entity.chat_id, user_to_add.user_id, fwd_limit=0
+                )
+            )
+
+            time.sleep(2)
+            return True
+
+        except PeerFloodError:
+            print("Erro de flood. Dormindo por 1 hora.")
+            time.sleep(3600)
+            return False
+
+        except UserPrivacyRestrictedError:
+            print("Usuário não permite ser adicionado no grupo.")
+            return False
+
+        except Exception as e:
+            print(str(e))
+            return False
 
     async def initialize(self):
         await self.connect()
